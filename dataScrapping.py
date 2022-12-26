@@ -15,14 +15,12 @@ def getaddrinfo(*args):
 
 socket.getaddrinfo = getaddrinfo
 
-#https://github.com/5ky1ar/Awesome-Onion-Links#credit-cards
 website = ["https://github.com/mounibkamhaz/DarkWeb", "https://github.com/darknet11/onionlink", "https://dark.fail/", 'http://torlinkv7cft5zhegrokjrxj2st4hcimgidaxdmcmdpcrnwfxrr2zxqd.onion/', 'http://wvqwxc2pv54vodexdspx45nto5brtuomdibcdc5xk22kjnjjseov6kid.onion/']
-dataCollected3 = ['http://ransomwr3tsydeii4q43vazm7wofla5ujdajquitomtd47cxjtfgwyyd.onion/','https://github.com/mounibkamhaz/DarkWeb', 'https://lukesmith.xyz/', 'freedom hosting','http://fhostingineiwjg6cppciac2bemu42nwsupvvisihnczinok362qfrqd.onion/', 'https://cakewallet.com/', 'https://www.erowid.org/donations/donations_cryptocurrency.php', 'http://darkfailenbsdla5mal2mxn2uz66od5vtzd5qozslagrfzachha3f3id.onion/', 'http://hbwikiwsue3y74k6jyijzfdvc5h3lcgre3zwbjvghm4qngoj5wtuoeid.onion/', 'http://olinkspc6xf2poogjgufztrly7rg347n2stmurhuqb7bjqgevsnyygid.onion/', 'http://p23gulsmmneshdxabrbt3j2enmf2h4suynuujimjqjlklo4pprx6flid.onion/', 'http://22tojepqmpah32fkeuurutki7o5bmb45uhmgzdg4l2tk34fkdafgt7id.onion/']
+test = ['http://ransomwr3tsydeii4q43vazm7wofla5ujdajquitomtd47cxjtfgwyyd.onion/','https://github.com/mounibkamhaz/DarkWeb', 'https://lukesmith.xyz/', 'freedom hosting','http://fhostingineiwjg6cppciac2bemu42nwsupvvisihnczinok362qfrqd.onion/', 'https://cakewallet.com/', 'https://www.erowid.org/donations/donations_cryptocurrency.php', 'http://darkfailenbsdla5mal2mxn2uz66od5vtzd5qozslagrfzachha3f3id.onion/', 'http://hbwikiwsue3y74k6jyijzfdvc5h3lcgre3zwbjvghm4qngoj5wtuoeid.onion/', 'http://olinkspc6xf2poogjgufztrly7rg347n2stmurhuqb7bjqgevsnyygid.onion/', 'http://p23gulsmmneshdxabrbt3j2enmf2h4suynuujimjqjlklo4pprx6flid.onion/', 'http://22tojepqmpah32fkeuurutki7o5bmb45uhmgzdg4l2tk34fkdafgt7id.onion/']
 dataCollected = []
 noWorkingData = []
 cryptoList = []
 addressCollected = []
-cryptoNumList = []
 keySearchTerms = [r'bitcoin', r'monero', r'litecoin', r'zcash', r'ethereum', r'tether', r'btc', r'xmr', r'\beth', r'ltc', r'\bzec']
 regexList = [{'type': 'bitcoin', 'subtype': 'native segwit', 'regexAddress': r'bc1q[ac-hj-np-z02-9]{38}'},{'type': 'bitcoin', 'subtype': 'P2SH', 'regexAddress': r'\b3[a-km-zA-HJ-NP-Z1-9]{25,34}\b'}, {'type': 'bitcoin', 'subtype': r'legacy', 'regexAddress': r'[1][A-Z][a-zA-HJ-NP-Z0-9]{32}\b'}, {'type': 'monero', 'subtype': 'main', 'regexAddress': r'[4][0-9AB][1-9A-HJ-NP-Za-km-z]{93}'}, {'type': 'monero', 'subtype': 'subaddress' , 'regexAddress': r'[8][0-9AB][1-9A-HJ-NP-Za-km-z]{93}'}, {'type': 'ethereum', 'subtype': None, 'regexAddress': r'0x[a-fA-F0-9]{40}'}, {'type': 'litecoin', 'subtype': r'legacy', 'regexAddress': r'[L][a-km-zA-HJ-NP-Z1-9]{33}\b'}, {'type': 'litecoin', 'subtype': r'segwit', 'regexAddress': r'[M][a-km-zA-HJ-NP-Z1-9]{33}\b'}, {'type': 'zcash', 'subtype': r'transparent', 'regexAddress': r't1[a-km-zA-HJ-NP-Z1-9]{33}'}, {'type': 'zcash', 'subtype': r'shielded', 'regexAddress': r'z1[a-km-zA-HJ-NP-Z1-9]{33}'}]
 workingOnionSite = []
