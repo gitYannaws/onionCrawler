@@ -26,7 +26,7 @@ headers = {'User-Agent': user_agent()}
 # df = df.drop_duplicates(subset=['address'])
 # df.to_csv('onionAddressesFebTotal.csv', encoding='UTF8')
 
-reader = csv.DictReader(open('onionAddressesFebTotal.csv'))
+reader = csv.DictReader(open('onionAddressesTesting1.csv'))
 for enum, row in enumerate(reader):
     try:
         res = requests.get(f"https://blockchair.com/{row['type']}/address/{row['address']}", timeout=30, headers=headers)

@@ -41,10 +41,10 @@ noWorkingData = []
 cryptoList = []
 workingOnionSite = []
 addressCollected = []
-keyTerms = [{'coin': r'bitcoin', 'ticker': r'btc[\-_:),. ]|[\b]'}, {'coin': r'monero', 'ticker': r'xmr[\-_:),. ]|[\b]'}, {'coin': r'ethereum', 'ticker': r'[\b]|eth[\-_:),. ]|[\b]'},  {'coin': r'zcash', 'ticker': r'zec[\-_:),. ]|[\b]'}, {'coin': r'tether', 'ticker': r'usdt[\-_:),. ]|[\b]'}, {'coin': r'litecoin', 'ticker': r'ltc[\-_:),. ]|[\b]'}]
+    keyTerms = [{'coin': r'bitcoin', 'ticker': r'btc[\-_:),. ]|[\b]'}, {'coin': r'monero', 'ticker': r'xmr[\-_:),. ]|[\b]'}, {'coin': r'ethereum', 'ticker': r'[\b]|eth[\-_:),. ]|[\b]'},  {'coin': r'zcash', 'ticker': r'zec[\-_:),. ]|[\b]'}, {'coin': r'tether', 'ticker': r'usdt[\-_:),. ]|[\b]'}, {'coin': r'litecoin', 'ticker': r'ltc[\-_:),. ]|[\b]'}]
 regexList = [{'type': 'bitcoin', 'subtype': 'Bech32', 'regexAddress': r'bc1q[ac-hj-np-z02-9]{38}'},{'type': 'bitcoin', 'subtype': 'P2SH', 'regexAddress': r'\b3[a-km-zA-HJ-NP-Z1-9]{25,34}\b'}, {'type': 'bitcoin', 'subtype': r'P2PKH', 'regexAddress': r'1[A-Z][a-zA-HJ-NP-Z0-9]{32}\b'}, {'type': 'monero', 'subtype': 'main', 'regexAddress': r'4[0-9AB][1-9A-HJ-NP-Za-km-z]{93}'}, {'type': 'monero', 'subtype': 'subaddress', 'regexAddress': r'8[0-9AB][1-9A-HJ-NP-Za-km-z]{93}'}, {'type': 'ethereum', 'subtype': None, 'regexAddress': r'0x[a-fA-F0-9]{40}'},
-             {'type': 'litecoin', 'subtype': r'legacy', 'regexAddress': r'L[a-km-zA-HJ-NP-Z1-9]{33}\b'}, {'type': 'litecoin', 'subtype': r'native segwit', 'regexAddress': r'ltc[a-z0-9]{60}\b'}, {'type': 'litecoin', 'subtype': r'segwit', 'regexAddress': r'M[a-km-zA-HJ-NP-Z1-9]{33}\b'}, {'type': 'zcash', 'subtype': r'transparent', 'regexAddress': r't1[a-km-zA-HJ-NP-Z1-9]{33}'}, {'type': 'zcash', 'subtype': r'shielded', 'regexAddress': r'z1[a-km-zA-HJ-NP-Z1-9]{33}'}]
-
+             {'type': 'litecoin', 'subtype': r'legacy', 'regexAddress': r'\bL[a-km-zA-HJ-NP-Z1-9]{33}\b'}, {'type': 'litecoin', 'subtype': r'native segwit', 'regexAddress': r'ltc[a-z0-9]{60}\b'}, {'type': 'litecoin', 'subtype': r'segwit', 'regexAddress': r'M[a-km-zA-HJ-NP-Z1-9]{33}\b'}, {'type': 'zcash', 'subtype': r'transparent', 'regexAddress': r't1[a-km-zA-HJ-NP-Z1-9]{33}'}, {'type': 'zcash', 'subtype': r'shielded', 'regexAddress': r'z1[a-km-zA-HJ-NP-Z1-9]{33}'}]
+# add \b to front of legacy litecoin wallet
 res = requests.get("http://www.ifconfig.me/ip", timeout=30)
 soup = BeautifulSoup(res.content, 'html.parser')
 print(soup.get_text())
@@ -74,8 +74,6 @@ dataCollected = list(set(dataCollected))
 print(len(dataCollected))
 # dataCollected = dataCollected[0:(round(len(dataCollected)/2))]
 # dataCollected = dataCollected[(round(len(dataCollected)/2)):(round(len(dataCollected)))]
-print("new")
-print(len(dataCollected))
 def regexSeacher(soup, site):
     txt = re.sub(r"[\n]*", "", soup.get_text()) # removed \t
     # print(txt) #######
