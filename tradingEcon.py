@@ -21,8 +21,29 @@ res = requests.get("https://tradingeconomics.com/country-list/government-debt-to
 soup = BeautifulSoup(res.content, 'html.parser')
 # print(soup.prettify())
 data = soup.find_all("tr", {"class": "datatable-row"})
+data2 = soup.find_all("tr", {"class": "datatable-row-alternating"})
+debtToGDP = []
 # //*[@id="ctl00_ContentPlaceHolder1_ctl01_UpdatePanel1"]/div/div/table/tbody
 # class="datatable-row"
+
 for row in data:
-    print(row.find_all("td")[1].get_text())
+    debtToGDP.append({'debtToGDP': float(row.find_all("td")[1].get_text()), 'country': row.find_all("td")[0].get_text().strip()})
     print("--------------")
+
+for row in data2:
+    debtToGDP.append(
+        {'debtToGDP': float(row.find_all("td")[1].get_text()), 'country': row.find_all("td")[0].get_text().strip()})
+    print("--------------")
+
+# for row in data2:
+#     print(row.find_all("td")[0].get_text().strip())
+#     debtToGDP.append(row.find_all("td")[1].get_text().strip())
+#     # print("--------------")
+
+
+# print(debtToGDP)
+df = pd.DataFrame(debtToGDP)
+df = df.sort_values(by=['debtToGDP'], ascending=False)
+df = df.reset_index()
+print(df[['country', 'debtToGDP']][0:50])
+df.to_csv(debtToGDP.csv, sep='\t', encoding='utf-8')

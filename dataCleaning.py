@@ -25,11 +25,12 @@ pd.set_option('display.width', 1000)
 #
 # print(df[['address', 'website']])
 ###############################################
-# df = pd.read_csv('onionAddressesBalance.csv', encoding='UTF8')
-# df = df.drop_duplicates(subset=['address', 'type']) #620
-# df = df.reset_index()
-# df = df.loc[df['type'] == 'litecoin']
-# print(df[['address', 'type', 'website']])
+df = pd.read_csv('onionAddressesBalance.csv', encoding='UTF8')
+df = df.drop_duplicates(subset=['address', 'type']) #620
+df = df.reset_index()
+df = df.loc[df['totalReceived'] == 0]
+print(df[['address', 'type', 'website']])
+# print(df)
 ##############################################
 ##############################################
 #
@@ -124,12 +125,6 @@ pd.set_option('display.width', 1000)
 
 
 # df.to_csv('onionAddressesMega45.csv', encoding='UTF8')
-
-
-
-
-
-
 
 
 
