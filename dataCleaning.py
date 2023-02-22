@@ -5,15 +5,18 @@ import seaborn as sns
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.width', 1000)
-#############################################
-# df = pd.read_csv('coinDataTesting1.csv', encoding='UTF8')
-# df.loc[df['URL'].str.strip().str[-1] == '/', 'URL'] = df['URL'].str[:-1]
-# df = df.drop_duplicates(subset=['URL', 'coin', 'count'])
-# df = df.loc[df['count'] == 17]
+############################################# Check how many eths 1 count are for meth....
+df = pd.read_csv('coinData2023-02-18.csv', encoding='UTF8')
+df.loc[df['URL'].str.strip().str[-1] == '/', 'URL'] = df['URL'].str[:-1]
+df = df.drop_duplicates(subset=['URL', 'coin', 'count']) # add 'Month'
+df = df.reset_index()
+df['Month'] = 'Feb'
+# df = df.loc[df['coin'] == 'ethereum']
+# df = df.loc[df['count'] == 14]
 # df = df['count'].value_counts()
 # df.loc[df['URL'].str[:-1] == '/', 'URL'] = True
-# print(df[['coin', 'URL']])
-# print(df)
+# print(df[['count', 'URL']])
+print(df)
 ########################################
 # df2 = pd.read_csv('onionAddressesFeb.csv', encoding='UTF8')
 # df3 = pd.read_csv('onionAddressesFeb2.csv', encoding='UTF8')
@@ -25,22 +28,22 @@ pd.set_option('display.width', 1000)
 #
 # print(df[['address', 'website']])
 ###############################################
-df = pd.read_csv('onionAddressesBalance.csv', encoding='UTF8')
-df = df.drop_duplicates(subset=['address', 'type']) #620
-df = df.reset_index()
-df = df.loc[df['totalReceived'] == 0]
-print(df[['address', 'type', 'website']])
-# print(df)
+# df = pd.read_csv('onionAddressesBalance2.csv', encoding='UTF8')
+# df = df.drop_duplicates(subset=['address', 'type']) #620
+# df = df.reset_index()
+# df = df.drop(index=[18,45])
+# df = df.loc[df['totalReceived'] == 0]
+# print(df[['type', 'address']])
+# print(df.count())
 ##############################################
 ##############################################
-#
-# df2 = pd.read_csv('onionAddressesFeb.csv', encoding='UTF8')
-# df3 = pd.read_csv('onionAddressesFeb2.csv', encoding='UTF8')
-# frames = [df2, df3]
-# df = pd.concat(frames)
-#
+
+# df = pd.read_csv('onionAddressesBalance2.csv', encoding='UTF8')
+# print(len(df.index))
 # df = df.drop_duplicates(subset=['address'])
-#
+# print(len(df.index))
+# df = df.reset_index()
+# df = df.drop(index=[18,45]) #dropping non-crypto addresses
 #
 # dfB = df.loc[df['type'] == 'bitcoin']['type'].count()
 # dfM = df.loc[df['type'] == 'monero']['type'].count()
@@ -49,7 +52,7 @@ print(df[['address', 'type', 'website']])
 # dfZ = df.loc[df['type'] == 'zcash']['type'].count()
 #
 # print(dfM, dfB, dfL, dfE, dfZ)
-
+#
 # df1 = df.loc[df['subtype'] == 'Bech32']['subtype'].count()
 # df2 = df.loc[df['subtype'] == 'P2SH']['subtype'].count()
 # df3 = df.loc[df['subtype'] == 'P2PKH']['subtype'].count()
@@ -58,7 +61,7 @@ print(df[['address', 'type', 'website']])
 #
 # print(df1, df2, df3, df4, df5)
 #
-# #
+#
 # data = [dfM, dfB, dfL, dfE, dfZ]
 # labels = ['XMR', 'BTC', 'LTC', 'ETH', 'ZEC']
 # print(data)
@@ -95,7 +98,7 @@ print(df[['address', 'type', 'website']])
 # df = df.loc[~df['URL'].str.contains('link=')] # might not need
 # df = df.drop_duplicates(subset=['URL', 'count', 'coin'])
 #
-# dfMonero = df.loc[df['coin'] == 'monero']['count'].sum()
+# dfMonero = df.loc[df['coin'] == 'monero']['count'].sum() #.count()
 # dfBitcoin = df.loc[df['coin'] == 'bitcoin']['count'].sum()
 # dfEth = df.loc[df['coin'] == 'ethereum']['count'].sum()
 # dfLit = df.loc[df['coin'] == 'litecoin']['count'].sum()

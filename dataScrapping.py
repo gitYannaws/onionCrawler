@@ -6,6 +6,7 @@ import csv
 from time import sleep
 import pandas as pd
 import re
+import datetime
 from fake_user_agent import user_agent
 import random
 import urllib3
@@ -18,6 +19,7 @@ import urllib3
 newDict = []
 urllib3.disable_warnings()
 headers = {'User-Agent': user_agent()}
+date = str(datetime.datetime.now())
 
 # df2 = pd.read_csv('onionAddressesFeb.csv', encoding='UTF8')
 # df3 = pd.read_csv('onionAddressesFeb2.csv', encoding='UTF8')
@@ -26,7 +28,7 @@ headers = {'User-Agent': user_agent()}
 # df = df.drop_duplicates(subset=['address'])
 # df.to_csv('onionAddressesFebTotal.csv', encoding='UTF8')
 
-reader = csv.DictReader(open('onionAddressesTesting1.csv'))
+reader = csv.DictReader(open('onionAddresses2023-02-17.csv'))
 for enum, row in enumerate(reader):
     try:
         res = requests.get(f"https://blockchair.com/{row['type']}/address/{row['address']}", timeout=30, headers=headers)
@@ -49,13 +51,11 @@ for enum, row in enumerate(reader):
              'subtype': row['subtype']})
 
 
-
 print("-----------------------")
 for x in newDict:
     print(x)
 
-
-with open('onionAddressesBalance.csv', 'w', newline='', encoding='UTF8') as f:
+with open(f'onionAddressesBalance{date[0:10]}.csv', 'w', newline='', encoding='UTF8') as f:
     writer = csv.DictWriter(f, fieldnames=['address', 'website', 'type', 'subtype', 'currentBalance', 'totalReceived'])
     writer.writeheader()
     writer.writerows(newDict)
