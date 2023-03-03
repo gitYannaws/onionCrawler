@@ -93,7 +93,7 @@ def regexSeacher(soup, site):
                 if len(address) <= 120:
                     print(address)
                     addressCollected.append(
-                        {'address': address, 'website': site, 'type': regex['type'], 'subtype': regex['subtype']})
+                        {'address': address, 'website': site, 'type': regex['type'], 'subtype': regex['subtype'], 'month': month.strftime("%B")})
                 else:
                     print("!Longer than 120 character crypto address!", site)
 
@@ -101,7 +101,7 @@ def regexSeacher(soup, site):
         shortCoinList = re.findall(searchTerm['coin'], txt.lower())
         shortTickerList = re.findall(searchTerm['ticker'], txt.lower())
         if len(shortCoinList) != 0 or len(shortTickerList) != 0:
-            cryptoList.append({'coin': searchTerm['coin'], 'count': (len(shortCoinList) + len(shortTickerList)), 'URL': site, 'Month': month.strftime("%B")})
+            cryptoList.append({'coin': searchTerm['coin'], 'count': (len(shortCoinList) + len(shortTickerList)), 'URL': site, 'month': month.strftime("%B")})
 
 
 
@@ -156,12 +156,12 @@ df = pd.DataFrame(data={"sites": workingOnionSite})
 df.to_csv(f"onionSite{date[0:10]}.csv", sep=',',index=False, encoding='UTF8')
 
 with open(f'coinData{date[0:10]}.csv', 'w', newline='', encoding='UTF8') as f:
-    writer = csv.DictWriter(f, fieldnames=['coin', 'URL', 'count'])
+    writer = csv.DictWriter(f, fieldnames=['coin', 'URL', 'count', 'month'])
     writer.writeheader()
     writer.writerows(cryptoList)
 
 with open(f'onionAddresses{date[0:10]}.csv', 'w', newline='', encoding='UTF8') as f:
-    writer = csv.DictWriter(f, fieldnames=['address', 'website', 'type', 'subtype'])
+    writer = csv.DictWriter(f, fieldnames=['address', 'website', 'type', 'subtype', 'month'])
     writer.writeheader()
     writer.writerows(addressCollected)
 

@@ -6,11 +6,11 @@ pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.width', 1000)
 ############################################# Check how many eths 1 count are for meth....
-# df = pd.read_csv('coinData2023-02-18.csv', encoding='UTF8')
+# df = pd.read_csv('coinData2023-03-02.csv', encoding='UTF8')
 # df.loc[df['URL'].str.strip().str[-1] == '/', 'URL'] = df['URL'].str[:-1]
-# df = df.drop_duplicates(subset=['URL', 'coin', 'count']) # add 'Month'
-# df = df.reset_index()
-# # df = df.loc[df['coin'] == 'ethereum']
+# df = df.drop_duplicates(subset=['URL', 'coin', 'count', 'month']) # add 'Month'
+# df = df.reset_index() #752
+# df = df.loc[df['coin'] == 'monero']['count'].count()
 # # df = df.loc[df['count'] == 14]
 # # df = df['count'].value_counts()
 # # df.loc[df['URL'].str[:-1] == '/', 'URL'] = True
@@ -154,7 +154,8 @@ df1 = pd.read_csv('coinData2023-02-18.csv', encoding='UTF8')
 df1['month'] = 'February'
 df2 = pd.read_csv('coinDataTesting2.csv', encoding='UTF8')
 df2['month'] = 'January'
-frames = [df1, df2]
+df3 = pd.read_csv('coinData2023-03-02.csv', encoding='UTF8')
+frames = [df1, df2, df3]
 df = pd.concat(frames)
 df = df.reset_index()
 df.loc[df['URL'].str.strip().str[-1] == '/', 'URL'] = df['URL'].str[:-1]
@@ -175,43 +176,59 @@ import matplotlib.pyplot as plt
 from matplotlib import rc
 import pandas as pd
 
-
 monero = df[df.coin=='monero'].groupby('month')['count'].count()
+print(monero)
 bitcoin = df[df.coin=='bitcoin'].groupby('month')['count'].count()
 ethereum = df[df.coin=='ethereum'].groupby('month')['count'].count()
-
+print(ethereum)
+# litecoin = df[df.coin=='litecoin'].groupby('month')['count'].count()
 
 # Data
-r = [0, 1]
-raw_data = {'greenBars': monero, 'orangeBars': bitcoin, 'blueBars': ethereum} #,'blueBars': [2, 15, 18, 5, 10]
+r = [0, 1, 2]
+raw_data = {'monero': monero, 'bitcoin': bitcoin, 'ethereum': ethereum} #,'blueBars': [2, 15, 18, 5, 10]
 df = pd.DataFrame(raw_data)
 # From raw value to percentage
-totals = [i+j+k for i,j,k in zip(df['greenBars'], df['orangeBars'], df['blueBars'])] #df['blueBars']
-print(totals)
-greenBars = [i / j * 100 for i, j in zip(df['greenBars'], totals)]
-orangeBars = [i / j * 100 for i, j in zip(df['orangeBars'], totals)]
-blueBars = [i / j * 100 for i, j in zip(df['blueBars'], totals)]
+totals = [i+j+k for i,j,k in zip(df['monero'], df['bitcoin'], df['ethereum'])] #df['blueBars']
+moneroBars = [i / j * 100 for i, j in zip(df['monero'], totals)]
+bitcoinBars = [i / j * 100 for i, j in zip(df['bitcoin'], totals)]
+ethereumBars = [i / j * 100 for i, j in zip(df['ethereum'], totals)]
+# litecoinBars = [i / j * 100 for i, j in zip(df['litecoin'], totals)]
+
+print(moneroBars, bitcoinBars, ethereumBars)
+bars = [ethereumBars, bitcoinBars, moneroBars]
 # plot
 barWidth = 0.85
-names = ('Jan', 'Feb')
+names = ('Jan', 'Feb', 'Mar')
 # Create green Bars
-plt.bar(r, greenBars, color='#b5ffb9', edgecolor='white', width=barWidth, label='XMR')
+plt.bar(r, moneroBars, color='#b5ffb9', edgecolor='white', width=barWidth, label='XMR')
 # Create orange Bars
-plt.bar(r, orangeBars, bottom=greenBars, color='#f9bc86', edgecolor='white', width=barWidth, label='BTC')
+plt.bar(r, bitcoinBars, bottom=moneroBars, color='#f9bc86', edgecolor='white', width=barWidth, label='BTC')
 # Create blue Bars
-plt.bar(r, blueBars, bottom=[i + j for i, j in zip(greenBars, orangeBars)], color='#a3acff', edgecolor='white',
+plt.bar(r, ethereumBars, bottom=[i + j for i, j in zip(moneroBars, bitcoinBars)], color='#a3acff', edgecolor='white',
         width=barWidth, label='Eth')
+# plt.bar(r, litecoins, bottom=[i + j for i, j in zip(greenBars, orangeBars, blueBars)], color='#a3acff', edgecolor='white',
+#         width=barWidth, label='LTC')
 # Custom x axis
 plt.xticks(r, names)
-plt.bar_label(
-    bar_container, fmt=lambda x: '{:.1f} km/h'.format(x * 1.61)
+# for bar in bars:
+#     for i, v in enumerate(bar):
+#         plt.text(i, v+1, str(round(v, 1)), ha='center')
+
+for i, v in enumerate(bitcoinBars):
+    plt.text(i, 50, round(v, 1), ha='center')
+
+for i, v in enumerate(moneroBars):
+    plt.text(i, v-10, round(v, 1), ha='center')
+
+for i, v in enumerate(ethereumBars):
+    plt.text(i, 100-v, round(v, 1), ha='center')
 
 plt.xlabel("Months of the year")
 plt.legend(loc='upper left', bbox_to_anchor=(1,1), ncol=1)
 # Show graphic
 plt.show()
 
-
+########################################################################
 # load dataset
 # tips = df
 #
