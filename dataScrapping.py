@@ -22,13 +22,13 @@ headers = {'User-Agent': user_agent()}
 date = str(datetime.datetime.now())
 
 # df2 = pd.read_csv('onionAddressesFeb.csv', encoding='UTF8')
-# df3 = pd.read_csv('onionAddressesFeb2.csv', encoding='UTF8')
+# df3 = pd.read_csv('onionAddre ssesFeb2.csv', encoding='UTF8')
 # frames = [df2, df3]
 # df = pd.concat(frames)
 # df = df.drop_duplicates(subset=['address'])
 # df.to_csv('onionAddressesFebTotal.csv', encoding='UTF8')
 
-reader = csv.DictReader(open('onionAddresses2023-02-17.csv'))
+reader = csv.DictReader(open('onionAddresses2023-03-31.csv'))
 for enum, row in enumerate(reader):
     try:
         res = requests.get(f"https://blockchair.com/{row['type']}/address/{row['address']}", timeout=30, headers=headers)
@@ -37,7 +37,7 @@ for enum, row in enumerate(reader):
         span2 = soup.findAll('span', {'class': 'account-hash__balance__values'})[1]
         currentBalance = span1.findAll('span', {'class': 'wb-ba'})[0]
         totalReceived = span2.findAll('span', {'class': 'wb-ba'})[0]
-        print(enum ,currentBalance.get_text().replace(",", ""), "-", totalReceived.get_text().replace(",", ""), row['address'])
+        print(enum,currentBalance.get_text().replace(",", ""), "-", totalReceived.get_text().replace(",", ""), row['address'])
 
         newDict.append(
             {'currentBalance': float(currentBalance.get_text().replace(",", "")), 'totalReceived': float(totalReceived.get_text().replace(",", "")), 'type': row['type'], 'address': row['address'], 'website': row['website'],

@@ -6,16 +6,16 @@ pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.width', 1000)
 ############################################# Check how many eths 1 count are for meth....
-# df = pd.read_csv('coinData2023-03-02.csv', encoding='UTF8')
-# df.loc[df['URL'].str.strip().str[-1] == '/', 'URL'] = df['URL'].str[:-1]
-# df = df.drop_duplicates(subset=['URL', 'coin', 'count', 'month']) # add 'Month'
-# df = df.reset_index() #752
+df = pd.read_csv('coinData2023-03-02.csv', encoding='UTF8')
+df.loc[df['URL'].str.strip().str[-1] == '/', 'URL'] = df['URL'].str[:-1]
+df = df.drop_duplicates(subset=['URL', 'coin', 'count', 'month']) # add 'Month'
+df = df.reset_index() #752
 # df = df.loc[df['coin'] == 'monero']['count'].count()
-# # df = df.loc[df['count'] == 14]
-# # df = df['count'].value_counts()
-# # df.loc[df['URL'].str[:-1] == '/', 'URL'] = True
-# # print(df[['count', 'URL']])
-# print(df)
+# df = df.loc[df['count'] == 14]
+# df = df['count'].value_counts()
+# df.loc[df['URL'].str[:-1] == '/', 'URL'] = True
+# print(df[['count', 'URL']])
+print(df)
 ########################################
 # df2 = pd.read_csv('onionAddressesFeb.csv', encoding='UTF8')
 # df3 = pd.read_csv('onionAddressesFeb2.csv', encoding='UTF8')
@@ -144,89 +144,98 @@ pd.set_option('display.width', 1000)
 # plt.axis('off')
 # plt.show()
 ######################################
-#https://www.python-graph-gallery.com/13-percent-stacked-barplot
-import seaborn as sns
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-
-df1 = pd.read_csv('coinData2023-02-18.csv', encoding='UTF8')
-df1['month'] = 'February'
-df2 = pd.read_csv('coinDataTesting2.csv', encoding='UTF8')
-df2['month'] = 'January'
-df3 = pd.read_csv('coinData2023-03-02.csv', encoding='UTF8')
-frames = [df1, df2, df3]
-df = pd.concat(frames)
-df = df.reset_index()
-df.loc[df['URL'].str.strip().str[-1] == '/', 'URL'] = df['URL'].str[:-1]
-df = df.drop_duplicates(subset=['URL', 'coin', 'count', 'month'])
-df = df.reset_index()
-
-df1 = df[df['coin'] == 'litecoin']['count'].count()
-df2 = df[df['coin'] == 'monero']['count'].count()
-df3 = df[df['coin'] == 'ethereum']['count'].count()
-df4 = df[df['coin'] == 'bitcoin']['count'].count()
-df5 = df[df['coin'] == 'zcash']['count'].count()
-
-print(df1, df2, df3, df4, df5)
-
-# libraries
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib import rc
-import pandas as pd
-
-monero = df[df.coin=='monero'].groupby('month')['count'].count()
-print(monero)
-bitcoin = df[df.coin=='bitcoin'].groupby('month')['count'].count()
-ethereum = df[df.coin=='ethereum'].groupby('month')['count'].count()
-print(ethereum)
+# #https://www.python-graph-gallery.com/13-percent-stacked-barplot
+# import seaborn as sns
+# import numpy as np
+# import matplotlib.pyplot as plt
+# import matplotlib.patches as mpatches
+#
+# df1 = pd.read_csv('coinData2023-02-18.csv', encoding='UTF8')
+# df1['month'] = 'February'
+# df2 = pd.read_csv('coinDataTesting2.csv', encoding='UTF8')
+# df2['month'] = 'January'
+# df3 = pd.read_csv('coinData2023-03-02.csv', encoding='UTF8')
+# frames = [df1, df2, df3]
+# df = pd.concat(frames)
+# df = df.reset_index()
+# df.loc[df['URL'].str.strip().str[-1] == '/', 'URL'] = df['URL'].str[:-1]
+# df = df.drop_duplicates(subset=['URL', 'coin', 'count', 'month'])
+# df = df.reset_index()
+#
+# df1 = df[df['coin'] == 'litecoin']['count'].count()
+# df2 = df[df['coin'] == 'monero']['count'].count()
+# df3 = df[df['coin'] == 'ethereum']['count'].count()
+# df4 = df[df['coin'] == 'bitcoin']['count'].count()
+# df5 = df[df['coin'] == 'zcash']['count'].count()
+#
+# print(df1, df2, df3, df4, df5)
+#
+# # libraries
+# import numpy as np
+# import matplotlib.pyplot as plt
+# from matplotlib import rc
+# import pandas as pd
+#
+# monero = df[df.coin=='monero'].groupby('month')['count'].count()
+# print(monero)
+# bitcoin = df[df.coin=='bitcoin'].groupby('month')['count'].count()
+# ethereum = df[df.coin=='ethereum'].groupby('month')['count'].count()
+# print(ethereum)
 # litecoin = df[df.coin=='litecoin'].groupby('month')['count'].count()
-
-# Data
-r = [0, 1, 2]
-raw_data = {'monero': monero, 'bitcoin': bitcoin, 'ethereum': ethereum} #,'blueBars': [2, 15, 18, 5, 10]
-df = pd.DataFrame(raw_data)
-# From raw value to percentage
-totals = [i+j+k for i,j,k in zip(df['monero'], df['bitcoin'], df['ethereum'])] #df['blueBars']
-moneroBars = [i / j * 100 for i, j in zip(df['monero'], totals)]
-bitcoinBars = [i / j * 100 for i, j in zip(df['bitcoin'], totals)]
-ethereumBars = [i / j * 100 for i, j in zip(df['ethereum'], totals)]
+# print(litecoin)
+# zcash = df[df.coin=='zcash'].groupby('month')['count'].count()
+# print(zcash)
+#
+#
+# # Data
+# r = [0, 1, 2]
+# raw_data = {'monero': monero, 'bitcoin': bitcoin, 'ethereum': ethereum, 'litecoin': litecoin, 'zcash': zcash} #,'blueBars': [2, 15, 18, 5, 10]
+# df = pd.DataFrame(raw_data)
+# # From raw value to percentage
+# totals = [i+j+k+m for i,j,k,m,l in zip(df['monero'], df['bitcoin'], df['ethereum'], df['litecoin'], df['zcash'])] #df['blueBars']
+# moneroBars = [i / j * 100 for i, j in zip(df['monero'], totals)]
+# bitcoinBars = [i / j * 100 for i, j in zip(df['bitcoin'], totals)]
+# ethereumBars = [i / j * 100 for i, j in zip(df['ethereum'], totals)]
 # litecoinBars = [i / j * 100 for i, j in zip(df['litecoin'], totals)]
-
-print(moneroBars, bitcoinBars, ethereumBars)
-bars = [ethereumBars, bitcoinBars, moneroBars]
-# plot
-barWidth = 0.85
-names = ('Jan', 'Feb', 'Mar')
-# Create green Bars
-plt.bar(r, moneroBars, color='#b5ffb9', edgecolor='white', width=barWidth, label='XMR')
-# Create orange Bars
-plt.bar(r, bitcoinBars, bottom=moneroBars, color='#f9bc86', edgecolor='white', width=barWidth, label='BTC')
-# Create blue Bars
-plt.bar(r, ethereumBars, bottom=[i + j for i, j in zip(moneroBars, bitcoinBars)], color='#a3acff', edgecolor='white',
-        width=barWidth, label='Eth')
-# plt.bar(r, litecoins, bottom=[i + j for i, j in zip(greenBars, orangeBars, blueBars)], color='#a3acff', edgecolor='white',
-#         width=barWidth, label='LTC')
-# Custom x axis
-plt.xticks(r, names)
-# for bar in bars:
-#     for i, v in enumerate(bar):
-#         plt.text(i, v+1, str(round(v, 1)), ha='center')
-
-for i, v in enumerate(bitcoinBars):
-    plt.text(i, 50, round(v, 1), ha='center')
-
-for i, v in enumerate(moneroBars):
-    plt.text(i, v-10, round(v, 1), ha='center')
-
-for i, v in enumerate(ethereumBars):
-    plt.text(i, 100-v, round(v, 1), ha='center')
-
-plt.xlabel("Months of the year")
-plt.legend(loc='upper left', bbox_to_anchor=(1,1), ncol=1)
-# Show graphic
-plt.show()
+# zcashBars = [i / j * 100 for i, j in zip(df['zcash'], totals)]
+#
+#
+# print(moneroBars, bitcoinBars, ethereumBars, litecoinBars)
+# bars = [ethereumBars, bitcoinBars, moneroBars, litecoinBars]
+# # plot
+# barWidth = 0.55
+# names = ('Jan', 'Feb', 'Mar')
+# plt.bar(r, moneroBars, color='#b5ffb9', edgecolor='white', width=barWidth, label='XMR')
+# plt.bar(r, bitcoinBars, bottom=moneroBars, color='#f9bc86', edgecolor='white', width=barWidth, label='BTC')
+# plt.bar(r, ethereumBars, bottom=[i + j for i, j in zip(moneroBars, bitcoinBars)], color='#a3acff', edgecolor='white',
+#         width=barWidth, label='ETH')
+# plt.bar(r, litecoinBars, bottom=[i + j + k for i, j, k in zip(moneroBars, bitcoinBars, ethereumBars)], color='#f4a3ff', edgecolor='white', width=barWidth, label='LTC')
+# plt.bar(r, zcashBars, bottom=[i + j + k + l for i, j, k, l in zip(moneroBars, bitcoinBars, ethereumBars, litecoinBars)], color='#a3fff0', edgecolor='white', width=barWidth, label='ZEC')
+#
+# plt.xticks(r, names)
+# # for bar in bars:
+# #     for i, v in enumerate(bar):
+# #         plt.text(i, v+1, str(round(v, 1)), ha='center')
+#
+# for i, v in enumerate(bitcoinBars):
+#     plt.text(i, 50, str(round(v, 1)) + '%', ha='center', fontsize=8)
+#
+# for i, v in enumerate(moneroBars):
+#     plt.text(i, v-10, str(round(v, 1)) + '%', ha='center', fontsize=8)
+#
+# for i, v in enumerate(ethereumBars):
+#     plt.text(i, 100-v, str(round(v, 1)) + '%', ha='center', fontsize=8)
+#
+# for i, v in enumerate(litecoinBars):
+#     plt.text(i, 100-v, str(round(v, 1)) + '%', ha='center', fontsize=8)
+#
+# for i, v in enumerate(zcashBars):
+#     plt.text(i, 100-v, str(round(v, 1)) + '%', ha='center', fontsize=8)
+# plt.xlabel("2023, 2.5k onion sites")
+# plt.legend(loc='upper left', bbox_to_anchor=(1,1), ncol=1)
+# # Show graphic
+# plt.show()
+# plt.savefig('pic.png')
 
 ########################################################################
 # load dataset
