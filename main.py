@@ -6,15 +6,15 @@ import csv
 from time import sleep
 import pandas as pd
 import re
-from fake_user_agent import user_agent
+# from fake_user_agent import user_agent
 import random
 import urllib3
 import datetime
 import os
 import sys
 from pandas import *
-from stem import Signal
-from stem.control import Controller
+# from stem import Signal
+# from stem.control import Controller
 ######################################
 ## darknet updating by search terms on the onions sites website with graph and charts updating monthly etc.
 ## if its more than 1 of the same type of address don't add any of them
@@ -50,10 +50,13 @@ cryptoList = []
 workingOnionSite = []
 addressCollected = []
 # can't be nothing in fro of eth = meth
+#bc1[a-zA-HJ-NP-Z0-9]{35,99}($|\s)
 keyTerms = [{'coin': r'bitcoin', 'ticker': r'btc[\-_:),. ]|[\b]'}, {'coin': r'monero', 'ticker': r'xmr[\-_:),. ]|[\b]'},
             {'coin': r'ethereum', 'ticker': r'[\b]|eth[\-_:),. ]|[\b]'},  {'coin': r'zcash', 'ticker': r'zec[\-_:),. ]|[\b]'}, {'coin': r'litecoin', 'ticker': r'ltc[\-_:),. ]|[\b]'}]
+##
 regexList = [{'type': 'bitcoin', 'subtype': 'Bech32', 'regexAddress': r'bc1q[ac-hj-np-z02-9]{38}'},{'type': 'bitcoin', 'subtype': 'P2SH', 'regexAddress': r'\b3[a-km-zA-HJ-NP-Z1-9]{25,34}\b'}, {'type': 'bitcoin', 'subtype': r'P2PKH', 'regexAddress': r'1[A-Z][a-zA-HJ-NP-Z0-9]{32}\b'}, {'type': 'monero', 'subtype': 'main', 'regexAddress': r'4[0-9AB][1-9A-HJ-NP-Za-km-z]{93}'}, {'type': 'monero', 'subtype': 'subaddress', 'regexAddress': r'8[0-9AB][1-9A-HJ-NP-Za-km-z]{93}'}, {'type': 'ethereum', 'subtype': None, 'regexAddress': r'0x[a-fA-F0-9]{40}'},
-             {'type': 'litecoin', 'subtype': r'legacy', 'regexAddress': r'\bL[a-km-zA-HJ-NP-Z1-9]{33}\b'}, {'type': 'litecoin', 'subtype': r'native segwit', 'regexAddress': r'ltc[a-z0-9]{60}\b'}, {'type': 'litecoin', 'subtype': r'segwit', 'regexAddress': r'\bM[a-km-zA-HJ-NP-Z1-9]{33}\b'}, {'type': 'zcash', 'subtype': r'transparent', 'regexAddress': r't1[a-km-zA-HJ-NP-Z1-9]{33}'}, {'type': 'zcash', 'subtype': r'shielded', 'regexAddress': r'z1[a-km-zA-HJ-NP-Z1-9]{33}'}]
+             {'type': 'litecoin', 'subtype': r'legacy', 'regexAddress': r'\bL[a-km-zA-HJ-NP-Z1-9]{33}\b'}, {'type': 'litecoin', 'subtype': r'native segwit', 'regexAddress': r'ltc1[a-zA-HJ-NP-Z0-9]{35,99}\b'}, {'type': 'litecoin', 'subtype': r'segwit', 'regexAddress': r'\bM[a-km-zA-HJ-NP-Z1-9]{33}\b'}, {'type': 'zcash', 'subtype': r'transparent', 'regexAddress': r't1[a-km-zA-HJ-NP-Z1-9]{33}'}, {'type': 'zcash', 'subtype': r'shielded', 'regexAddress': r'z1[a-km-zA-HJ-NP-Z1-9]{33}'}]
+#ltc[a-z0-9]{60}
 # add \b to front of legacy litecoin wallet
 res = requests.get("http://www.ifconfig.me/ip", timeout=30)
 soup = BeautifulSoup(res.content, 'html.parser')
