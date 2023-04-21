@@ -55,7 +55,6 @@ print("-----------------------")
 for x in newDict:
     print(x)
 
-
 with open(f'onionAddressesBalance{date[0:10]}.csv', 'w', newline='', encoding='UTF8') as f:
     writer = csv.DictWriter(f, fieldnames=['address', 'website', 'type', 'subtype', 'currentBalance', 'totalReceived'])
     writer.writeheader()

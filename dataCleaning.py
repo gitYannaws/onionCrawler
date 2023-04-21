@@ -287,91 +287,120 @@ pd.set_option('display.width', 1000)
 # plt.show()
 # print(df)
 ######################################################
-df1 = pd.read_csv('onionAddressesBalance2023-03-02.csv', encoding='UTF8')
-df2 = pd.read_csv('onionAddressesBalance2023-04-01.csv', encoding='UTF8')
-df1['month'] = 'February'
-df2['month'] = 'March'
-frames = [df1, df2]
-dfx = pd.concat(frames)
-dfx = dfx.reset_index()
-dfx = dfx.drop_duplicates(subset=['index', 'address', 'website', 'type', 'subtype', 'currentBalance', 'totalReceived', 'month'])
-df = dfx.reset_index()
-dfx = dfx.reset_index()
-
+# df1 = pd.read_csv('onionAddressesBalance2023-03-02.csv', encoding='UTF8')
+# df2 = pd.read_csv('onionAddressesBalance2023-04-01.csv', encoding='UTF8')
+# df1['month'] = 'February'
+# df2['month'] = 'March'
+# frames = [df1, df2]
+# dfx = pd.concat(frames)
+# dfx = dfx.reset_index()
+# dfx = dfx.drop_duplicates(subset=['index', 'address', 'website', 'type', 'subtype', 'currentBalance', 'totalReceived', 'month'])
+# df = dfx.reset_index()
+# dfx = dfx.reset_index()
+#
+# print(df.columns)
+# print(df[df['type'] == 'litecoin']['type'].count())
+# df1 = df[df['type'] == 'litecoin']['type'].count()
+# df2 = df[df['type'] == 'monero']['type'].count()
+# df3 = df[df['type'] == 'ethereum']['type'].count()
+# df4 = df[df['type'] == 'bitcoin']['type'].count()
+# df5 = df[df['type'] == 'zcash']['type'].count()
+#
+# print(df1, df2, df3, df4, df5)
+#
+# monero = df[df.type=='monero'].groupby('month')['type'].count()
+# print(monero)
+# bitcoin = df[df.type=='bitcoin'].groupby('month')['type'].count()
+# ethereum = df[df.type=='ethereum'].groupby('month')['type'].count()
+# print(ethereum)
+# litecoin = df[df.type=='litecoin'].groupby('month')['type'].count()
+# print(litecoin)
+# zcash = df[df.type=='zcash'].groupby('month')['type'].count()
+# print(zcash)
+#
+# # Data
+# r = [0, 1] #update this every month
+# raw_data = {'monero': monero, 'bitcoin': bitcoin, 'ethereum': ethereum, 'litecoin': litecoin, 'zcash': zcash} #,'blueBars': [2, 15, 18, 5, 10]
+# df = pd.DataFrame(raw_data)
+# # From raw value to percentage
+# totals = [i+j+k+m for i,j,k,m,l in zip(df['monero'], df['bitcoin'], df['ethereum'], df['litecoin'], df['zcash'])] #df['blueBars']
+# moneroBars = [i / j * 100 for i, j in zip(df['monero'], totals)]
+# bitcoinBars = [i / j * 100 for i, j in zip(df['bitcoin'], totals)]
+# ethereumBars = [i / j * 100 for i, j in zip(df['ethereum'], totals)]
+# litecoinBars = [i / j * 100 for i, j in zip(df['litecoin'], totals)]
+# zcashBars = [i / j * 100 for i, j in zip(df['zcash'], totals)]
+#
+# print(moneroBars, bitcoinBars, ethereumBars, litecoinBars)
+# bars = [ethereumBars, bitcoinBars, moneroBars, litecoinBars]
+# # plot
+# barWidth = 0.55
+# names = ('Mar', 'Apr') #update this every month
+# plt.bar(r, moneroBars, color='#b5ffb9', edgecolor='white', width=barWidth, label='XMR')
+# plt.bar(r, bitcoinBars, bottom=moneroBars, color='#f9bc86', edgecolor='white', width=barWidth, label='BTC')
+# plt.bar(r, ethereumBars, bottom=[i + j for i, j in zip(moneroBars, bitcoinBars)], color='#a3acff', edgecolor='white',
+#         width=barWidth, label='ETH')
+# plt.bar(r, litecoinBars, bottom=[i + j + k for i, j, k in zip(moneroBars, bitcoinBars, ethereumBars)], color='#f4a3ff', edgecolor='white', width=barWidth, label='LTC')
+# plt.bar(r, zcashBars, bottom=[i + j + k + l for i, j, k, l in zip(moneroBars, bitcoinBars, ethereumBars, litecoinBars)], color='#a3fff0', edgecolor='white', width=barWidth, label='ZEC')
+#
+# plt.xticks(r, names)
+# # for bar in bars:
+# #     for i, v in enumerate(bar):
+# #         plt.text(i, v+1, str(round(v, 1)), ha='center')
+#
+# for i, v in enumerate(bitcoinBars):
+#     plt.text(i, 50, str(round(v, 1)) + '%', ha='center', fontsize=8)
+#
+# for i, v in enumerate(moneroBars):
+#     plt.text(i, v-10, str(round(v, 1)) + '%', ha='center', fontsize=8)
+#
+# for i, v in enumerate(ethereumBars):
+#     plt.text(i, 100-v, str(round(v, 1)) + '%', ha='center', fontsize=8)
+#
+# for i, v in enumerate(litecoinBars):
+#     plt.text(i, 100-v, str(round(v, 1)) + '%', ha='center', fontsize=8)
+#
+# for i, v in enumerate(zcashBars):
+#     plt.text(i, 100-v, str(round(v, 1)) + '%', ha='center', fontsize=8)
+# plt.xlabel(f'Avg ~{len(dfx)/len(names)} addresses per month')
+# plt.title('Crypto addresses scrapped from 2.5k onion links')
+# plt.legend(loc='upper left', bbox_to_anchor=(1,1), ncol=1)
+# plt.show()
+######################################################################
+# df = pd.read_csv('havenoGitHub.csv', encoding='UTF8')
+# df['DateFormated'] = pd.to_datetime(df['Date']).dt.date
+# print(df.columns)
+# df['yyyy-mm'] = pd.to_datetime(df['DateFormated']).dt.strftime('%y-%m')
+# df['yyyy'] = pd.to_datetime(df['DateFormated']).dt.strftime('%Y')
+# df = df.iloc[::-1]
+# print(df['Date'].dtypes)
+# p = df.groupby(['Author']).count()[lambda x: x >= 5].dropna().plot(kind='pie', y='Date', autopct='%1.1f%%')
+# print(p)
+# # sns.set(style="dark")
+# # sns.lineplot(x="yyyy-mm",
+# #              y="DateFormated",
+# #              data=p)
+# plt.xlabel('Number of Commits by Author')
+# plt.ylabel('')
+# plt.title('''Haveno's Github''')
+# p.get_legend().remove()
+# # plt.grid()
+# plt.show()
+#######################################
+df = pd.read_csv('havenoGitHub.csv', encoding='UTF8')
+df['DateFormated'] = pd.to_datetime(df['Date']).dt.date
 print(df.columns)
-print(df[df['type'] == 'litecoin']['type'].count())
-df1 = df[df['type'] == 'litecoin']['type'].count()
-df2 = df[df['type'] == 'monero']['type'].count()
-df3 = df[df['type'] == 'ethereum']['type'].count()
-df4 = df[df['type'] == 'bitcoin']['type'].count()
-df5 = df[df['type'] == 'zcash']['type'].count()
-
-print(df1, df2, df3, df4, df5)
-
-monero = df[df.type=='monero'].groupby('month')['type'].count()
-print(monero)
-bitcoin = df[df.type=='bitcoin'].groupby('month')['type'].count()
-ethereum = df[df.type=='ethereum'].groupby('month')['type'].count()
-print(ethereum)
-litecoin = df[df.type=='litecoin'].groupby('month')['type'].count()
-print(litecoin)
-zcash = df[df.type=='zcash'].groupby('month')['type'].count()
-print(zcash)
-
-# Data
-r = [0, 1] #update this every month
-raw_data = {'monero': monero, 'bitcoin': bitcoin, 'ethereum': ethereum, 'litecoin': litecoin, 'zcash': zcash} #,'blueBars': [2, 15, 18, 5, 10]
-df = pd.DataFrame(raw_data)
-# From raw value to percentage
-totals = [i+j+k+m for i,j,k,m,l in zip(df['monero'], df['bitcoin'], df['ethereum'], df['litecoin'], df['zcash'])] #df['blueBars']
-moneroBars = [i / j * 100 for i, j in zip(df['monero'], totals)]
-bitcoinBars = [i / j * 100 for i, j in zip(df['bitcoin'], totals)]
-ethereumBars = [i / j * 100 for i, j in zip(df['ethereum'], totals)]
-litecoinBars = [i / j * 100 for i, j in zip(df['litecoin'], totals)]
-zcashBars = [i / j * 100 for i, j in zip(df['zcash'], totals)]
-
-print(moneroBars, bitcoinBars, ethereumBars, litecoinBars)
-bars = [ethereumBars, bitcoinBars, moneroBars, litecoinBars]
-# plot
-barWidth = 0.55
-names = ('Mar', 'Apr') #update this every month
-plt.bar(r, moneroBars, color='#b5ffb9', edgecolor='white', width=barWidth, label='XMR')
-plt.bar(r, bitcoinBars, bottom=moneroBars, color='#f9bc86', edgecolor='white', width=barWidth, label='BTC')
-plt.bar(r, ethereumBars, bottom=[i + j for i, j in zip(moneroBars, bitcoinBars)], color='#a3acff', edgecolor='white',
-        width=barWidth, label='ETH')
-plt.bar(r, litecoinBars, bottom=[i + j + k for i, j, k in zip(moneroBars, bitcoinBars, ethereumBars)], color='#f4a3ff', edgecolor='white', width=barWidth, label='LTC')
-plt.bar(r, zcashBars, bottom=[i + j + k + l for i, j, k, l in zip(moneroBars, bitcoinBars, ethereumBars, litecoinBars)], color='#a3fff0', edgecolor='white', width=barWidth, label='ZEC')
-
-plt.xticks(r, names)
-# for bar in bars:
-#     for i, v in enumerate(bar):
-#         plt.text(i, v+1, str(round(v, 1)), ha='center')
-
-for i, v in enumerate(bitcoinBars):
-    plt.text(i, 50, str(round(v, 1)) + '%', ha='center', fontsize=8)
-
-for i, v in enumerate(moneroBars):
-    plt.text(i, v-10, str(round(v, 1)) + '%', ha='center', fontsize=8)
-
-for i, v in enumerate(ethereumBars):
-    plt.text(i, 100-v, str(round(v, 1)) + '%', ha='center', fontsize=8)
-
-for i, v in enumerate(litecoinBars):
-    plt.text(i, 100-v, str(round(v, 1)) + '%', ha='center', fontsize=8)
-
-for i, v in enumerate(zcashBars):
-    plt.text(i, 100-v, str(round(v, 1)) + '%', ha='center', fontsize=8)
-plt.xlabel(f'Avg ~{len(dfx)/len(names)} addresses per month')
-plt.title('Crypto addresses scrapped from 2.5k onion links')
-plt.legend(loc='upper left', bbox_to_anchor=(1,1), ncol=1)
+df['yyyy-mm'] = pd.to_datetime(df['DateFormated']).dt.strftime('%y-%m')
+df['yyyy'] = pd.to_datetime(df['DateFormated']).dt.strftime('%Y')
+df = df.iloc[::-1]
+g = df.groupby(['yyyy-mm']).count()
+print(g)
+sns.set(style="dark")
+sns.lineplot(x="yyyy-mm",
+             y="DateFormated",
+             data=g)
+plt.ylabel('Number of Commits')
+plt.xlabel('By Month')
+plt.title('''Haveno's Github''')
+plt.grid()
 plt.show()
-
-
-
-
-
-
-
-
-
-
+#################################################
