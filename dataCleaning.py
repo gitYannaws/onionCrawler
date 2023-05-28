@@ -386,21 +386,46 @@ pd.set_option('display.width', 1000)
 # # plt.grid()
 # plt.show()
 #######################################
-df = pd.read_csv('havenoGitHub.csv', encoding='UTF8')
-df['DateFormated'] = pd.to_datetime(df['Date']).dt.date
-print(df.columns)
-df['yyyy-mm'] = pd.to_datetime(df['DateFormated']).dt.strftime('%y-%m')
-df['yyyy'] = pd.to_datetime(df['DateFormated']).dt.strftime('%Y')
-df = df.iloc[::-1]
-g = df.groupby(['yyyy-mm']).count()
-print(g)
-sns.set(style="dark")
-sns.lineplot(x="yyyy-mm",
-             y="DateFormated",
-             data=g)
-plt.ylabel('Number of Commits')
-plt.xlabel('By Month')
-plt.title('''Haveno's Github''')
-plt.grid()
-plt.show()
+# df = pd.read_csv('havenoGitHubv3.csv', encoding='UTF8')
+# df['DateFormated'] = pd.to_datetime(df['Date']).dt.date
+# print(df.columns)
+# df['yyyy-mm'] = pd.to_datetime(df['DateFormated']).dt.strftime('%y-%m')
+# df['yyyy'] = pd.to_datetime(df['DateFormated']).dt.strftime('%Y')
+# df = df.iloc[::-1]
+# g = df.groupby(['yyyy-mm']).count()
+# print(g)
+# sns.set(style="dark")
+# sns.lineplot(x="yyyy-mm",
+#              y="DateFormated",
+#              data=g)
+# plt.ylabel('Number of Commits')
+# plt.xlabel('By Month')
+# plt.title('''Haveno's Github''')
+# plt.grid()
+# plt.show()
 #################################################
+df = pd.read_csv('Fi2020.csv', encoding='UTF8')
+df = df.sort_values(['C1. What country are you in?  Enter ALL your remaining answers in the appropriate currency for your country.  Where questions refer to "dollars" enter answers in your native currency.']).groupby(['C1. What country are you in?  Enter ALL your remaining answers in the appropriate currency for your country.  Where questions refer to "dollars" enter answers in your native currency.'])
+print(df.count())
+# df = df[df[r'''A2. How many individuals contribute to your household income?  For all subsequent questions, use the combined financial information for all people included in this answer (e.g. if you put 2 for yourself and your spouse, in the question about annual earnings include your income and your spouse's income).'''] == '1']
+# print(df['R1. What was your 2020 gross (pre-tax, pre-deductions) annual household income?'].describe())
+# print(df.columns)
+# g = df.groupby([r'C5. What is the highest level of education you have completed? [Myself]'])
+# print(g.count())
+# sns.displot(data=df, x='R1. What was your 2020 gross (pre-tax, pre-deductions) annual household income?', hue="C5. What is the highest level of education you have completed? [Myself]", kind="kde")
+# sns.displot(data=df, x="")
+# plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
